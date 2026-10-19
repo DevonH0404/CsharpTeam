@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace LibraryApp
 {
-    internal class Member
+    public class Member
     {
         // Private variables
         private string _name = "";
