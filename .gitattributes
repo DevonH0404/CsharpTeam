@@ -1,0 +1,4 @@
+text=auto eol=if
+*.cs text eol=if
+*.csproj text eol=if
+*.sln text eol=if
