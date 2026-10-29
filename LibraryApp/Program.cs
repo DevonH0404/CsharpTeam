@@ -5,7 +5,8 @@ public class Program
     public static void Main(string[] args)
     {
         try
-        {
+        {   
+
             var catalog = new Catalog();
 
             catalog.AddBook(new Book("The Pragmatic Programmer", "David Thomas", "9780135957059", 3));
