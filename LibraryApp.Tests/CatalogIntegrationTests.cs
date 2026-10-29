@@ -8,10 +8,11 @@ public class CatalogIntegrationTests
     {
         Book book = new Book("Test", "Author", "123456789", 1);
         Catalog catalog = new Catalog();
-
+        Member member = new Member("Test", 1);
+        catalog.AddMember(member);
         catalog.AddBook(book);
 
-        catalog.CheckOutBook("123456789");
+        catalog.CheckOutBook("123456789", 1);
 
         Assert.AreEqual(0, book.AvailableCopies);
     }
@@ -20,12 +21,12 @@ public class CatalogIntegrationTests
     {
         Book book = new Book("Test", "Author", "123456789", 1);
         Catalog catalog = new Catalog();
-
+        Member member = new Member("Test", 1);
+        catalog.AddMember(member);
         catalog.AddBook(book);
 
-        catalog.CheckOutBook("123456789");
-
-        catalog.ReturnBook("123456789");
+        catalog.CheckOutBook("123456789", 1);
+        catalog.ReturnBook("123456789", 1);
 
         Assert.AreEqual(1, book.AvailableCopies);
     }
@@ -40,8 +41,8 @@ public class CatalogIntegrationTests
     public void Catalog_Checking_Out_Inexistent_ISBN_Returns_Exception()
     {
         Catalog catalog = new Catalog();
-
-        Assert.Throws<InvalidOperationException>(() => catalog.CheckOutBook("123456789"));
+        Member member = new Member("Test", 1);
+        Assert.Throws<InvalidOperationException>(() => catalog.CheckOutBook("123456789", 1));
 
     }
 }

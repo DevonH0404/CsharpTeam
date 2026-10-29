@@ -6,10 +6,10 @@ namespace LibraryApp;
 /// </summary>
 public class Book
 {
-    public string Title { get; }
-    public string Author { get; }
-    public string Isbn { get; }
-    public int TotalCopies { get; }
+    public string Title { get; set; }
+    public string Author { get; set; }
+    public string Isbn { get; set; }
+    public int TotalCopies { get; set; }
     public int AvailableCopies { get; private set; }
 
     public Book(string title, string author, string isbn, int totalCopies)
