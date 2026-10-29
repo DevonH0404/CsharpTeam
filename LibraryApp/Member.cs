@@ -43,7 +43,15 @@ namespace LibraryApp
             // Add book to List
             CheckedOutBooks.Add(book);
 
-            book.CheckOut();
         }
-    }
-}
+        // Return
+        public void Return(Book book)
+        {
+            // Invalid return handling
+            if (!CheckedOutBooks.Contains(book))
+                throw new InvalidOperationException($"Member '{Name}' has not checked out the book '{book.Title}'.");
+            // Remove book from List
+            CheckedOutBooks.Remove(book);
+        }
+    }//end of Member
+}//end of namespace

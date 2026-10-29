@@ -34,6 +34,15 @@ dotnet_diagnostic.IDE0051.severity = warning  # unused private member
 dotnet_diagnostic.IDE0052.severity = warning  # unread private member
 dotnet_diagnostic.IDE0060.severity = warning  # unused parameter
 
+# Disable Roslyn formatting and whitespace rules
+dotnet_diagnostic.IDE0055.severity = none
+
+# Disable StyleCop whitespace rules (if using StyleCop.Analyzers)
+dotnet_diagnostic.SA1000.severity = none
+dotnet_diagnostic.SA1001.severity = none
+dotnet_diagnostic.SA1027.severity = none
+dotnet_diagnostic.SA1028.severity = none
+
 [*.{json,yml,yaml}]
 indent_size = 2
 
