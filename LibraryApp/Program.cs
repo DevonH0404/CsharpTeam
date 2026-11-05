@@ -8,7 +8,7 @@ public class Program
     // just create a member on program run for demo, if we implement a csv, store members in there
     private static Member member = new Member("TestMember", 1);
 
-public static void Main(string[] args)
+    public static void Main(string[] args)
     {
         // optimally for book reservation, we load from a csv and if a member is reserving a book and it's available, we check it out for them automatically
         try
