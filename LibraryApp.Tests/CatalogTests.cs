@@ -4,7 +4,7 @@ namespace LibraryApp.Tests;
 public class CatalogTests
 {
     [TestMethod]
-    public void add_book_should_add_book_to_catalog()
+    public void Add_Book_Should_Add_Book_To_Catalog()
     {
         // arrange
         Catalog catalog = new();
