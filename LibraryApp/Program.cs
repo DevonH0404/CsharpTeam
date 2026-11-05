@@ -19,6 +19,7 @@ public class Program
             // create member for testing
             catalog.AddMember(member);
 
+            var catalog = new Catalog();
             catalog.AddBook(new Book("The Pragmatic Programmer", "David Thomas", "9780135957059", 3));
             catalog.AddBook(new Book("Clean Code", "Robert C. Martin", "9780132350884", 2));
 
@@ -100,7 +101,7 @@ public class Program
                 {
                     for (int i = 0; i < availableBooks.Count; i++)
                     {
-                        Console.WriteLine($"{i + 1}. {availableBooks[i].Title} by {availableBooks[i].Author} — {availableBooks[i].AvailableCopies}/{availableBooks[i].TotalCopies} available");
+                        Console.WriteLine($"{i + 1}. {availableBooks[i].Title} by {availableBooks[i].Author} ï¿½ {availableBooks[i].AvailableCopies}/{availableBooks[i].TotalCopies} available");
                     }
 
                     string? choice = Console.ReadLine();
