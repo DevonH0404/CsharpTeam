@@ -47,7 +47,7 @@ public class Book
         if (AvailableCopies >= TotalCopies)
             throw new InvalidOperationException($"All copies of '{Title}' are already returned.");
         // before adding copies, check to see if there are any reserved members, if so, give the book to the first member in the list and remove them from the reserved list
-        if(member.CheckedOutBooks.Contains(this))
+        if (member.CheckedOutBooks.Contains(this))
         {
             if (ReservedMembers.Count > 0)
             {
@@ -70,11 +70,11 @@ public class Book
     {
         if (member is null)
             throw new ArgumentNullException(nameof(member));
-        if(AvailableCopies != 0)
+        if (AvailableCopies != 0)
             throw new InvalidOperationException($"Their is currently an available copy of {Title}, please check out the book instead.");
-        if(member.CheckedOutBooks.Contains(this))
+        if (member.CheckedOutBooks.Contains(this))
             throw new InvalidOperationException($"Member '{member.Name}' has already checked out the book '{Title}'.");
-        else if(!ReservedMembers.Contains(member) && !ReservedHistory.Contains(member))
+        else if (!ReservedMembers.Contains(member) && !ReservedHistory.Contains(member))
         {
             ReservedMembers.Add(member);
             Console.WriteLine($"Successfully checked out {Title} to {member.Name}");
