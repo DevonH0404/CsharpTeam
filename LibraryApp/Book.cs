@@ -42,19 +42,27 @@ public class Book
         AvailableCopies--;
     }
 
-    public void Return()
+    public void Return(Member member)
     {
         if (AvailableCopies >= TotalCopies)
             throw new InvalidOperationException($"All copies of '{Title}' are already returned.");
         // before adding copies, check to see if there are any reserved members, if so, give the book to the first member in the list and remove them from the reserved list
-        if (ReservedMembers.Count > 0)
+        if (member.CheckedOutBooks.Contains(this))
         {
-            var member = ReservedMembers[0];
-            member.CheckedOutBooks.Add(this);
-            ReservedMembers.RemoveAt(0);
-            ReservedHistory.Add(member);
+            if (ReservedMembers.Count > 0)
+            {
+                var reservedMember = ReservedMembers[0];
+                reservedMember.CheckedOutBooks.Add(this);
+                ReservedMembers.RemoveAt(0);
+                ReservedHistory.Add(reservedMember);
+            }
+            else AvailableCopies++;
+            Console.WriteLine($"Successfully returned {Title}.");
         }
-        else AvailableCopies++;
+        else
+        {
+            throw new InvalidOperationException($"{member.Name} does not currently have {Title} checked out.");
+        }
     }
 
     // Reserve a book for a member, checks to see if it's already been reserved by the member or if the member has it currently reserved
@@ -62,8 +70,15 @@ public class Book
     {
         if (member is null)
             throw new ArgumentNullException(nameof(member));
-        if (!ReservedMembers.Contains(member) && !ReservedHistory.Contains(member))
+        if (AvailableCopies != 0)
+            throw new InvalidOperationException($"Their is currently an available copy of {Title}, please check out the book instead.");
+        if (member.CheckedOutBooks.Contains(this))
+            throw new InvalidOperationException($"Member '{member.Name}' has already checked out the book '{Title}'.");
+        else if (!ReservedMembers.Contains(member) && !ReservedHistory.Contains(member))
+        {
             ReservedMembers.Add(member);
+            Console.WriteLine($"Successfully checked out {Title} to {member.Name}");
+        }
     }
 
     // removes member from list of reservedmembers
