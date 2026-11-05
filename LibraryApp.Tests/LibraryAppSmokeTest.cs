@@ -7,14 +7,14 @@ namespace LibraryApp.Tests;
 public class SmokeTests
 {
     [TestMethod]
-    public void Application_Starts_DisplaysCatalog_AndExitsCleanly()
+    public void Application_Starts_DisplaysMenu_AndExitsCleanly()
     {
         // looks for project file
-        var projectPath = FindLibraryAppProject();
+        string projectPath = FindLibraryAppProject();
 
+        // sets up environment for the application to run
         using var process = new Process
         {
-            // set up environment for the application to run
             StartInfo = new ProcessStartInfo
             {
                 FileName = "dotnet",
@@ -30,21 +30,27 @@ public class SmokeTests
         // actually run the application
         process.StartInfo.ArgumentList.Add("run");
         process.StartInfo.ArgumentList.Add("--no-build");
+
         // run library app project
         process.StartInfo.ArgumentList.Add("--project");
+
         // location of the project
         process.StartInfo.ArgumentList.Add(projectPath);
 
-        // this should launch the application successfully and display the catalog, then exit when option 3 is selected.
-        Assert.IsTrue(process.Start(), "The application process could not be started.");
+        // this should launch the application successfully and display the menu, then exit when option 4 is selected.
+        Assert.IsTrue(
+            process.Start(),
+            "The application process could not be started.");
 
         // when menu loads, select option 4 to exit the application
         process.StandardInput.WriteLine("4");
+
         // close input stream, (use this when we will no longer be giving the application any more input)
         process.StandardInput.Close();
 
         // capture everything the application printed to the console
         string output = process.StandardOutput.ReadToEnd();
+
         // capture everything the application printed as an error
         string error = process.StandardError.ReadToEnd();
 
@@ -59,12 +65,15 @@ public class SmokeTests
             process.ExitCode,
             $"The application exited with code {process.ExitCode}. Error: {error}");
 
-        // did the application display the catalog and menu?
-        StringAssert.Contains(output, "=== Library Catalog ===");
-        StringAssert.Contains(output, "The Pragmatic Programmer");
-        StringAssert.Contains(output, "Clean Code");
-        StringAssert.Contains(output, "The DevOps Handbook");
+        // did the application display the menu options?
         StringAssert.Contains(output, "Please choose an option");
+        StringAssert.Contains(output, "1. Checkout book");
+        StringAssert.Contains(output, "2. Return Book");
+        StringAssert.Contains(output, "3. Reserve a Book");
+        StringAssert.Contains(output, "4. Exit");
+
+        // did the application exit successfully?
+        StringAssert.Contains(output, "Exiting the application.");
     }
 
     // goes and looks for the LibraryApp project file
@@ -74,7 +83,7 @@ public class SmokeTests
 
         while (directory is not null)
         {
-            var projectPath = Path.Combine(
+            string projectPath = Path.Combine(
                 directory.FullName,
                 "LibraryApp",
                 "LibraryApp.csproj");
